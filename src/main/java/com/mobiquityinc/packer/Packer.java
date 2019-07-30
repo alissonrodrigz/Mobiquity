@@ -26,8 +26,7 @@ public class Packer {
     }
 
     StringBuilder packResult = new StringBuilder();
-    try {
-      BufferedReader br = new BufferedReader(new FileReader(file));
+    try (BufferedReader br = new BufferedReader(new FileReader(file))){
       String line;
       while ((line = br.readLine()) != null) {
         int indexOfColon = line.indexOf(":");
@@ -42,8 +41,6 @@ public class Packer {
 
         packResult.append(fillBagWithItems(packageWeight, items)).append("\n");
       }
-    } catch (IOException e) {
-      throw new APIException("There was an error reading file: " + filePath, e);
     } catch (APIException e) {
       throw e;
     } catch (Exception e) {
